@@ -75,109 +75,254 @@ $result = $conn->query("SELECT * FROM users WHERE role != 'admin' ORDER BY user_
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<title>Manage Users - Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        nav a span.material-icons {
+            margin-right: 12px;
+            font-size: 24px;
+            vertical-align: middle;
+        }
+
+        nav::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        nav::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar {
+            transition: width 0.3s;
+        }
+    </style>
 </head>
-<body>
-<h1>Manage Users</h1>
 
-<nav>
-  <ul>
-    <li><a href="dashboard.php" class="active">Dashboard</a></li>
-    <li><a href="active_pcs.php">Active PCs</a></li>
-    <li><a href="manage_users.php">Manage Users</a></li>
-    <li><a href="manage_rooms.php">Manage Rooms</a></li>
-    <li><a href="maintenance_reports.php">Maintenance Reports</a></li>
-    <li><a href="announcements.php">Announcements</a></li>
-    <li><a href="../login.php">Logout</a></li>
-  </ul>
-</nav>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="sidebar w-64 bg-red-700 text-white p-6 flex flex-col overflow-y-auto shadow-lg">
+            <div class="flex items-center mb-8">
+                <h1 class="text-3xl font-extrabold tracking-wide">Admin</h1>
+                <button id="toggleSidebar" class="ml-2 text-white focus:outline-none">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+            </div>
 
-<?php if ($edit_user): ?>
-<h2>Edit User (ID: <?= $edit_user['user_id'] ?>)</h2>
-<form method="post">
-    <input type="hidden" name="user_id" value="<?= $edit_user['user_id'] ?>">
-    <label>Full Name: <input type="text" name="full_name" value="<?= htmlspecialchars($edit_user['full_name']) ?>" required></label><br>
-    <label>Email: <input type="email" name="email" value="<?= htmlspecialchars($edit_user['email']) ?>" required></label><br>
-    <label>Password: <input type="password" name="password" placeholder="Leave blank to keep current"></label><br>
-    <label>Role:
-        <select name="role" required>
-            <option value="student" <?= $edit_user['role'] === 'student' ? 'selected' : '' ?>>Student</option>
-            <option value="admin" <?= $edit_user['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
-        </select>
-    </label><br>
-    <label>Course: <input type="text" name="course" value="<?= htmlspecialchars($edit_user['course']) ?>"></label><br>
-    <label>Year: <input type="text" name="year" value="<?= htmlspecialchars($edit_user['year']) ?>"></label><br>
-    <label>Section: <input type="text" name="section" value="<?= htmlspecialchars($edit_user['section']) ?>"></label><br>
-    <button type="submit" name="edit_user">Update User</button>
-    <a href="manage_users.php">Cancel</a>
-</form>
+            <p class="text-xs font-semibold uppercase mb-4 tracking-wide text-red-300">Menu</p>
 
-<?php else: ?>
+            <ul class="flex-grow space-y-2">
+                <li>
+                    <a href="dashboard.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">dashboard</span>
+                        <span class="font-semibold text-lg">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="active_pcs.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">desktop_windows</span>
+                        <span class="font-semibold text-lg">Active PCs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="manage_users.php" class="flex items-center p-3 rounded-lg bg-red-800 hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">people</span>
+                        <span class="font-semibold text-lg">Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="manage_rooms.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">meeting_room</span>
+                        <span class="font-semibold text-lg">Rooms</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="manage_equipment.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">build</span>
+                        <span class="font-semibold text-lg">Equipment</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="maintenance_reports.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">description</span>
+                        <span class="font-semibold text-lg">Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="announcements.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <span class="material-icons">announcement</span>
+                        <span class="font-semibold text-lg">Announcements</span>
+                    </a>
+                </li>
+            </ul>
 
-<h2>Add User</h2>
-<form method="post">
-    <label>Full Name: <input type="text" name="full_name" required></label><br>
-    <label>Email: <input type="email" name="email" required></label><br>
-    <label>Password: <input type="password" name="password" required></label><br>
-    <label>Role:
-        <select name="role" required>
-            <option value="student">Student</option>
-            <option value="admin">Admin</option>
-        </select>
-    </label><br>
-    <label>Course: <input type="text" name="course"></label><br>
-    <label>Year: <input type="text" name="year"></label><br>
-    <label>Section: <input type="text" name="section"></label><br>
-    <button type="submit" name="add_user">Add User</button>
-</form>
+            <div class="mt-auto pt-6 border-t border-red-800">
+                <p class="text-xs font-semibold uppercase mb-4 tracking-wide text-red-300">Support</p>
+                <ul>
+                    <li>
+                        <a href="../login.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                            <span class="material-icons">logout</span>
+                            <span class="font-semibold text-lg">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-<?php endif; ?>
+        <!-- Main Content -->
+        <main class="flex-grow p-6 md:p-10 overflow-y-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-4xl font-extrabold text-gray-800">Manage Users</h2>
+                <a href="dashboard.php" class="inline-flex items-center px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 transition-colors duration-200">
+                    <span class="material-icons mr-2">arrow_back</span>
+                    Back to Dashboard
+                </a>
+            </div>
 
-<h2>Users List</h2>
-<table border="1" cellpadding="5" cellspacing="0">
-<thead>
-<tr>
-    <th>User ID</th>
-    <th>Full Name</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Course</th>
-    <th>Year</th>
-    <th>Section</th>
-    <th>Action</th>
-</tr>
-</thead>
-<tbody>
-<?php while($row = $result->fetch_assoc()): ?>
-<tr>
-    <td><?= $row['user_id'] ?></td>
-    <td><?= htmlspecialchars($row['full_name']) ?></td>
-    <td><?= htmlspecialchars($row['email']) ?></td>
-    <td><?= $row['role'] ?></td>
-    <td><?= htmlspecialchars($row['course']) ?></td>
-    <td><?= htmlspecialchars($row['year']) ?></td>
-    <td><?= htmlspecialchars($row['section']) ?></td>
-    <td>
-        <?php if ($row['user_id'] != $_SESSION['user_id']): ?>
-            <form method="post" style="display:inline-block" onsubmit="return confirm('Delete this user?');">
-                <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
-                <button type="submit" name="delete_user">Delete</button>
-            </form>
-            <form method="get" style="display:inline-block;">
-                <input type="hidden" name="edit_user_id" value="<?= $row['user_id'] ?>">
-                <button type="submit">Edit</button>
-            </form>
-        <?php else: ?>
-            N/A
-        <?php endif; ?>
-    </td>
-</tr>
-<?php endwhile; ?>
-</tbody>
-</table>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Add/Edit User Form -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">
+                        <?= $edit_user ? 'Edit User' : 'Add New User' ?>
+                    </h3>
+                    <form method="post" class="space-y-4">
+                        <?php if ($edit_user): ?>
+                            <input type="hidden" name="user_id" value="<?= $edit_user['user_id'] ?>">
+                        <?php endif; ?>
 
-<a href="dashboard.php">Back to Dashboard</a>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" name="full_name" value="<?= $edit_user ? htmlspecialchars($edit_user['full_name']) : '' ?>" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" name="email" value="<?= $edit_user ? htmlspecialchars($edit_user['email']) : '' ?>" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password <?= $edit_user ? '(leave blank to keep current)' : '' ?></label>
+                            <input type="password" name="password" <?= $edit_user ? '' : 'required' ?>
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                            <select name="role" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                                <option value="student" <?= $edit_user && $edit_user['role'] === 'student' ? 'selected' : '' ?>>Student</option>
+                                <option value="admin" <?= $edit_user && $edit_user['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Course</label>
+                            <input type="text" name="course" value="<?= $edit_user ? htmlspecialchars($edit_user['course']) : '' ?>"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                            <input type="text" name="year" value="<?= $edit_user ? htmlspecialchars($edit_user['year']) : '' ?>"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Section</label>
+                            <input type="text" name="section" value="<?= $edit_user ? htmlspecialchars($edit_user['section']) : '' ?>"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <div class="flex space-x-4">
+                            <button type="submit" name="<?= $edit_user ? 'edit_user' : 'add_user' ?>"
+                                class="flex-1 bg-red-700 text-white py-2 px-4 rounded-lg hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200">
+                                <?= $edit_user ? 'Update User' : 'Add User' ?>
+                            </button>
+                            <?php if ($edit_user): ?>
+                                <a href="manage_users.php"
+                                    class="flex-1 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200 text-center">
+                                    Cancel
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Users List -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-6">Users List</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Section</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <?php while ($row = $result->fetch_assoc()): ?>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= $row['user_id'] ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><?= htmlspecialchars($row['full_name']) ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= htmlspecialchars($row['email']) ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= $row['role'] ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= htmlspecialchars($row['course']) ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= htmlspecialchars($row['year']) ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= htmlspecialchars($row['section']) ?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <?php if ($row['user_id'] != $_SESSION['user_id']): ?>
+                                                    <div class="flex space-x-2">
+                                                        <form method="get" class="inline">
+                                                            <input type="hidden" name="edit_user_id" value="<?= $row['user_id'] ?>">
+                                                            <button type="submit" class="text-blue-600 hover:text-blue-800">
+                                                                <span class="material-icons text-sm">edit</span>
+                                                            </button>
+                                                        </form>
+                                                        <form method="post" class="inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                                            <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
+                                                            <button type="submit" name="delete_user" class="text-red-600 hover:text-red-800">
+                                                                <span class="material-icons text-sm">delete</span>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <span class="text-gray-400">Current User</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('w-64');
+            sidebar.classList.toggle('w-20');
+        });
+    </script>
 </body>
+
 </html>

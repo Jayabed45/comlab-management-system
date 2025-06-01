@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2025 at 05:59 PM
+-- Generation Time: Jun 01, 2025 at 06:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -100,54 +100,59 @@ CREATE TABLE `pcs` (
   `room_id` int(11) DEFAULT NULL,
   `pc_number` int(11) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT 0,
-  `used_by` int(11) DEFAULT NULL
+  `used_by` int(11) DEFAULT NULL,
+  `cpu` varchar(100) DEFAULT NULL,
+  `ram` varchar(50) DEFAULT NULL,
+  `storage` varchar(100) DEFAULT NULL,
+  `gpu` varchar(100) DEFAULT NULL,
+  `os` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pcs`
 --
 
-INSERT INTO `pcs` (`pc_id`, `room_id`, `pc_number`, `is_active`, `used_by`) VALUES
-(1, 1, 1, 0, NULL),
-(2, 2, 1, 0, NULL),
-(3, 3, 1, 0, NULL),
-(4, 4, 1, 0, NULL),
-(5, 1, 2, 0, NULL),
-(6, 2, 2, 0, NULL),
-(7, 3, 2, 0, NULL),
-(8, 4, 2, 0, NULL),
-(9, 1, 3, 0, NULL),
-(10, 2, 3, 0, NULL),
-(11, 3, 3, 0, NULL),
-(12, 4, 3, 0, NULL),
-(13, 1, 4, 0, NULL),
-(14, 2, 4, 0, NULL),
-(15, 3, 4, 0, NULL),
-(16, 4, 4, 0, NULL),
-(17, 1, 5, 0, NULL),
-(18, 2, 5, 0, NULL),
-(19, 3, 5, 0, NULL),
-(20, 4, 5, 0, NULL),
-(64, 1, 1, 0, NULL),
-(65, 2, 1, 0, NULL),
-(66, 3, 1, 0, NULL),
-(67, 4, 1, 0, NULL),
-(68, 1, 2, 0, NULL),
-(69, 2, 2, 0, NULL),
-(70, 3, 2, 0, NULL),
-(71, 4, 2, 0, NULL),
-(72, 1, 3, 0, NULL),
-(73, 2, 3, 0, NULL),
-(74, 3, 3, 0, NULL),
-(75, 4, 3, 0, NULL),
-(76, 1, 4, 0, NULL),
-(77, 2, 4, 0, NULL),
-(78, 3, 4, 0, NULL),
-(79, 4, 4, 0, NULL),
-(80, 1, 5, 0, NULL),
-(81, 2, 5, 0, NULL),
-(82, 3, 5, 0, NULL),
-(83, 4, 5, 0, NULL);
+INSERT INTO `pcs` (`pc_id`, `room_id`, `pc_number`, `is_active`, `used_by`, `cpu`, `ram`, `storage`, `gpu`, `os`) VALUES
+(1, 1, 1, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(2, 2, 1, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(3, 3, 1, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(4, 4, 1, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(5, 1, 2, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(6, 2, 2, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(7, 3, 2, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(8, 4, 2, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(9, 1, 3, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(10, 2, 3, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(11, 3, 3, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(12, 4, 3, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(13, 1, 4, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(14, 2, 4, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(15, 3, 4, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(16, 4, 4, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(17, 1, 5, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(18, 2, 5, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(19, 3, 5, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(20, 4, 5, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(21, 1, 6, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(22, 2, 6, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(23, 3, 6, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(24, 4, 6, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(25, 1, 7, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(26, 2, 7, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(27, 3, 7, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(28, 4, 7, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(29, 1, 8, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(30, 2, 8, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(31, 3, 8, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(32, 4, 8, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(33, 1, 9, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(34, 2, 9, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(35, 3, 9, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(36, 4, 9, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(37, 1, 10, 1, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(38, 2, 10, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(39, 3, 10, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10'),
+(40, 4, 10, 0, NULL, 'Intel i5', '8GB', '256GB SSD', 'Intel UHD', 'Windows 10');
 
 -- --------------------------------------------------------
 
@@ -208,7 +213,8 @@ INSERT INTO `usage_logs` (`usage_log_id`, `user_id`, `pc_id`, `login_time`, `log
 (3, 2, 68, '2025-05-28 06:30:15', '2025-05-28 06:31:19'),
 (4, 2, 1, '2025-05-28 06:31:37', '2025-05-28 06:31:39'),
 (5, 2, 1, '2025-05-28 06:35:33', '2025-05-28 06:38:37'),
-(6, 2, 1, '2025-05-28 06:39:27', NULL);
+(6, 2, 1, '2025-05-28 06:39:27', '2025-05-31 19:59:25'),
+(7, 2, 1, '2025-05-31 20:04:23', '2025-05-31 20:04:30');
 
 -- --------------------------------------------------------
 
@@ -273,6 +279,7 @@ ALTER TABLE `maintenance_reports`
 --
 ALTER TABLE `pcs`
   ADD PRIMARY KEY (`pc_id`),
+  ADD UNIQUE KEY `unique_room_pc` (`room_id`,`pc_number`),
   ADD KEY `room_id` (`room_id`),
   ADD KEY `used_by` (`used_by`);
 
@@ -356,7 +363,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `usage_logs`
 --
 ALTER TABLE `usage_logs`
-  MODIFY `usage_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `usage_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -402,13 +409,6 @@ ALTER TABLE `pcs`
 ALTER TABLE `pc_usage_logs`
   ADD CONSTRAINT `pc_usage_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `pc_usage_logs_ibfk_2` FOREIGN KEY (`pc_id`) REFERENCES `pcs` (`pc_id`);
-
---
--- Constraints for table `usage_logs`
---
-ALTER TABLE `usage_logs`
-  ADD CONSTRAINT `usage_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `usage_logs_ibfk_2` FOREIGN KEY (`pc_id`) REFERENCES `pcs` (`pc_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

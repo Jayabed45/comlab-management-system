@@ -131,6 +131,12 @@
           </a>
         </li>
         <li>
+          <a href="manage_equipment.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+            <span class="material-icons">build</span>
+            <span class="font-semibold text-lg">Equipment</span>
+          </a>
+        </li>
+        <li>
           <a href="maintenance_reports.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
             <span class="material-icons">description</span>
             <span class="font-semibold text-lg">Reports</span>
@@ -150,7 +156,7 @@
         <p class="text-xs font-semibold uppercase mb-4 tracking-wide text-red-300">Support</p>
         <ul>
           <li>
-            <a href="../logout.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
+            <a href="../login.php" class="flex items-center p-3 rounded-lg hover:bg-red-600 transition-colors duration-200">
               <span class="material-icons">logout</span>
               <span class="font-semibold text-lg">Logout</span>
             </a>
